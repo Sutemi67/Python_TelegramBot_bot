@@ -37,7 +37,19 @@ def get_weather(message):
     last_word = message.text.split()[-1]
     last_word_lower = last_word.lower()
     if message.text == f"погода в городе {last_word}":
-        res = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={last_word_lower}&appid={weather_api}&units=metric")
+        res = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?q={last_word_lower}&appid={weather_api}&units=metric")
+        if res.status_code == 200:
+            data = json.loads(res.text)
+            temp = data['main']['temp']
+            humidity = data['main']['humidity']
+            wind = data['wind']["speed"]
+            bot.reply_to(message, f"Температура сейчас: {temp}\nВлажность: {humidity}\nВетер: {wind}м/с")
+        else:
+            bot.reply_to(message, "Такой город не найден")
+    elif message.text == f"Погода в городе {last_word}":
+        res = requests.get(
+            f"https://api.openweathermap.org/data/2.5/weather?q={last_word_lower}&appid={weather_api}&units=metric")
         if res.status_code == 200:
             data = json.loads(res.text)
             temp = data['main']['temp']
