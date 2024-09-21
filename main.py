@@ -27,7 +27,7 @@ def main(message):
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data == 'weather':
-        bot.send_message(chatID, 'Чтобы узнать погоду напиши к примеру\n"погода в городе Смоленск"')
+        bot.send_message(chatID, 'Чтобы узнать погоду напиши вопрос в любом из форматов\n"погода Смоленск"\n"Погода москва"')
     elif callback.data == 'currency':
         bot.send_message(chatID, 'погоду пока поспрашивай')
 
@@ -36,7 +36,7 @@ def callback_message(callback):
 def get_weather(message):
     last_word = message.text.split()[-1]
     last_word_lower = last_word.lower()
-    if message.text == f"погода в городе {last_word}":
+    if message.text == f"погода {last_word}":
         res = requests.get(
             f"https://api.openweathermap.org/data/2.5/weather?q={last_word_lower}&appid={weather_api}&units=metric")
         if res.status_code == 200:
@@ -47,7 +47,7 @@ def get_weather(message):
             bot.reply_to(message, f"Температура сейчас: {temp}\nВлажность: {humidity}\nВетер: {wind}м/с")
         else:
             bot.reply_to(message, "Такой город не найден")
-    elif message.text == f"Погода в городе {last_word}":
+    elif message.text == f"Погода {last_word}":
         res = requests.get(
             f"https://api.openweathermap.org/data/2.5/weather?q={last_word_lower}&appid={weather_api}&units=metric")
         if res.status_code == 200:
