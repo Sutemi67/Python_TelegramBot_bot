@@ -2,14 +2,11 @@ import json
 import webbrowser
 
 import requests
-from currency_converter import CurrencyConverter
 from telebot import types
-
 import Keys
 
 bot = Keys.bot
 weather_api = Keys.weather_api
-currency = CurrencyConverter()
 chatID = 0
 
 
