@@ -5,8 +5,10 @@ import requests
 import json
 from currency_converter import CurrencyConverter
 
-bot = telebot.TeleBot("7557506732:AAHdCITiJTBAj-r_0M32oPNvZTNNLUk9v74")
-weather_api = "985445d183837d778dc2a8e34937db9a"
+import Keys
+
+bot = Keys.bot
+weather_api = Keys.weather_api
 currency = CurrencyConverter()
 chatID = 0
 
@@ -27,7 +29,8 @@ def main(message):
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data == 'weather':
-        bot.send_message(chatID, 'Чтобы узнать погоду напиши вопрос в любом из форматов\n"погода Смоленск"\n"Погода москва"')
+        bot.send_message(chatID,
+                         'Чтобы узнать погоду напиши вопрос в любом из форматов\n"погода Смоленск"\n"Погода москва"')
     elif callback.data == 'currency':
         bot.send_message(chatID, 'погоду пока поспрашивай')
 
