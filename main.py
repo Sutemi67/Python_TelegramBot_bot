@@ -1,9 +1,9 @@
-import telebot
-import webbrowser
-from telebot import types
-import requests
 import json
+import webbrowser
+
+import requests
 from currency_converter import CurrencyConverter
+from telebot import types
 
 import Keys
 
