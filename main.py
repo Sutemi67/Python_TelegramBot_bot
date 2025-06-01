@@ -17,7 +17,7 @@ bot.remove_webhook()
 def main(message):
     print(f"Получена команда /start от пользователя {message.from_user.first_name}")
     markup = types.InlineKeyboardMarkup()
-    btn1 = types.InlineKeyboardButton('Перейти на сайт', url='https://www.sbphoto.art/main')
+    btn1 = types.InlineKeyboardButton('Перейти на сайт', url='http://212.3.131.67:6655/')
     btn2 = types.InlineKeyboardButton('Узнать погоду', callback_data='weather')
     btn3 = types.InlineKeyboardButton('Курс валюты', callback_data='currency')
     markup.add(btn1, btn2, btn3)
@@ -27,7 +27,7 @@ def main(message):
         print("Сообщение успешно отправлено")
     except Exception as e:
         print(f"Ошибка при отправке сообщения: {e}")
-    
+
     global chatID
     chatID = message.chat.id
 
@@ -71,7 +71,7 @@ def get_weather(message):
 
 @bot.message_handler(commands=['site'])
 def site():
-    webbrowser.open('https://www.sbphoto.art/main')
+    webbrowser.open('http://212.3.131.67:6655/')
 
 
 @bot.message_handler(content_types=['photo', 'audio', 'video'])
