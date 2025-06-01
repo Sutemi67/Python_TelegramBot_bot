@@ -9,16 +9,25 @@ bot = Keys.bot
 weather_api = Keys.weather_api
 chatID = 0
 
+# Удаляем вебхук перед запуском бота
+bot.remove_webhook()
+
 
 @bot.message_handler(commands=['start'])
 def main(message):
+    print(f"Получена команда /start от пользователя {message.from_user.first_name}")
     markup = types.InlineKeyboardMarkup()
     btn1 = types.InlineKeyboardButton('Перейти на сайт', url='https://www.sbphoto.art/main')
     btn2 = types.InlineKeyboardButton('Узнать погоду', callback_data='weather')
     btn3 = types.InlineKeyboardButton('Курс валюты', callback_data='currency')
     markup.add(btn1, btn2, btn3)
 
-    bot.send_message(message.chat.id, f"Привет, {message.from_user.first_name}", reply_markup=markup)
+    try:
+        bot.send_message(message.chat.id, f"Привет, {message.from_user.first_name}", reply_markup=markup)
+        print("Сообщение успешно отправлено")
+    except Exception as e:
+        print(f"Ошибка при отправке сообщения: {e}")
+    
     global chatID
     chatID = message.chat.id
 
@@ -73,4 +82,10 @@ def get_content(message):
 # bot.edit_message_text('Edit text', callback.message.chat.id, callback.message.message_id)
 # bot.delete_message(callback.message.chat.id, callback.message.message_id - 1)
 
-bot.polling(none_stop=True)
+if __name__ == '__main__':
+    print("Бот запущен и ожидает сообщения...")
+    try:
+        bot.polling(none_stop=True)
+    except Exception as e:
+        print(f"Произошла ошибка: {e}")
+        bot.stop_polling()
