@@ -1,6 +1,9 @@
 import json
 import webbrowser
 
+# pip installed needed
+# next "pip install requests" etc.
+# Keys is a file, which now is weather_bot_key
 import requests
 from telebot import types
 import Keys
